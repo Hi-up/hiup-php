@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+/* Basic parts & configurations
+-----------------------------*/
+@import "_frameworks.scss";
+
+/* Plugin
+-----------------------------*/
+@import "plugins/_slick.scss";
+
+/* Style
+-----------------------------*/
+@import "pages/_common.scss";
+@import "pages/_header.scss";
+@import "pages/_footer.scss";
+
+// data-page-type: default
+@import "pages/_default.scss";
+
+// data-page-type: top
+@import "pages/_top.scss";

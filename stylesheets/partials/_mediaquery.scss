@@ -1,0 +1,98 @@
+// Retrieve a property for a breakpoint (indexed by number starting [1-4], or string [sm|md|lg])
+@function get-breakpoint-property($bp_index) {
+	@if type-of($bp_index) == 'number' {
+		@return nth($breakpoints, $bp_index);
+	} @else {
+		@each $breakpoint in $breakpoints {
+			@if get-breakpoint-index($breakpoint) == $bp_index {
+				@return $breakpoint;
+			}
+		}
+	}
+}
+@function get-breakpoint-property-index($bp_index) {
+	@if type-of($bp_index) == 'number' {
+		@return $bp_index;
+	} @else {
+		$property-index: 1;
+		@each $breakpoint in $breakpoints {
+			@if get-breakpoint-index($breakpoint) == $bp_index {
+				@return $property-index;
+			}
+			$property-index: $property-index +1;
+		}
+	}
+}
+// Retrieve a value from a breakpoint propterty
+@function get-breakpoint-index($breakpointProperty) {
+	@return nth($breakpointProperty, 1);
+}
+@function get-breakpoint-viewport($breakpointProperty) {
+	@if nth($breakpointProperty, 2) == null {
+		@return 0px;
+	} @else {
+		@return nth($breakpointProperty, 2);
+	}
+}
+@function get-breakpoint-width($breakpointProperty) {
+	@return nth($breakpointProperty, 3);
+}
+// Return breakpoint width for the given breakp
+@function breakpoint($bp_index, $offset: 0) {
+	@return get-breakpoint-viewport(get-breakpoint-property($bp_index)) + $offset;
+}
+@function breakpoint-min($bp_index) {
+	@return breakpoint($bp_index);
+}
+@function breakpoint-max($bp_index) {
+	@return breakpoint(get-breakpoint-property-index($bp_index) + 1, -1);
+}
+// short-form
+@function bp($bp_index, $offset: 0) {
+	@return breakpoint($bp_index, $offset);
+}
+@function bp-min($bp_index) {
+	@return breakpoint-min($bp_index);
+}
+@function bp-max($bp_index) {
+	@return breakpoint-max($bp_index);
+}
+
+@mixin mediaquery-all($breakpoint) {
+	.visible-#{$breakpoint}-block {
+		display: block !important;
+	}
+	.visible-#{$breakpoint}-inline {
+		display: inline !important;
+	}
+	.visible-#{$breakpoint}-inline-block {
+		display: inine-block !important;
+	}
+	.hidden-#{$breakpoint} {
+		display: none !important;
+	}
+}
+%display-none {
+	display: none !important;
+}
+@for $i from 1 through $breakpoint-length {
+	$breakpoint: get-breakpoint-index(get-breakpoint-property($i));
+	.visible-#{$breakpoint}-block,
+	.visible-#{$breakpoint}-inline,
+	.visible-#{$breakpoint}-inline-block {
+		@extend %display-none;
+	}
+	@if $i == 1 {
+		@media (max-width: breakpoint-max($breakpoint)) {
+			@include mediaquery-all($breakpoint);
+		}
+	} @elseif $i != $breakpoint-length {
+		@media (min-width: breakpoint-min($breakpoint)) and (max-width: breakpoint-max($breakpoint)) {
+			@include mediaquery-all($breakpoint);
+		}
+	} @else {
+		@media (min-width: breakpoint-min($breakpoint)) {
+			@include mediaquery-all($breakpoint);
+		}
+	}
+}

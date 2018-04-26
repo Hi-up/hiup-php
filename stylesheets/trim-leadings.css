@@ -1,0 +1,53 @@
+@charset "UTF-8";
+@font-face {
+  font-family: "YuGothic M";
+  src: local("Yu Gothic Medium"); }
+.med {
+  font-family: "游ゴシック Medium", "Yu Gothic Medium", "游ゴシック体", YuGothic, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'Droid Sans', "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+.norm {
+  font-family: "游ゴシック体", "游ゴシック", YuGothic, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'Droid Sans', "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+.meiryo {
+  font-family: 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'Droid Sans', "Helvetica Neue", Helvetica, Arial, sans-serif; }
+
+main#fiddle > section {
+  width: 33%;
+  float: left; }
+main#fiddle div.circle {
+  margin: auto;
+  width: 30px;
+  height: 30px;
+  border-radius: 15px;
+  background: orange; }
+main#fiddle div.circle {
+  width: 100%;
+  boarder-radius: none; }
+main#fiddle p {
+  margin-top: calc(-1 * (2em - 1em));
+  font-size: 20px;
+  letter-spacing: 1px;
+  line-height: 2em;
+  border-top: dashed 1px red;
+  border-bottom: dashed 1px blue;
+  background: rgba(0, 0, 255, 0.5);
+  text-align: center; }
+  main#fiddle p .trim-leadings {
+    vertical-align: -0.5em;
+    line-height: 0em; }
+    html[data-IE="Windows_10 IE_11"] main#fiddle p .trim-leadings {
+      vertical-align: -0.66em; }
+  main#fiddle p:not(:last-of-type) {
+    margin-bottom: 1em; }
+  main#fiddle p.no-trim-leadings {
+    font-size: 20px;
+    letter-spacing: 1px;
+    line-height: 2em;
+    background: rgba(255, 0, 0, 0.5); }
+    main#fiddle p.no-trim-leadings .trim-leadings {
+      vertical-align: inherit;
+      line-height: inherit; }
+main#fiddle .trim-leadings {
+  background: rgba(0, 128, 0, 0.5); }
+
+/*# sourceMappingURL=trim-leadings.css.map */

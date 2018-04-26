@@ -1,0 +1,254 @@
+@charset "UTF-8";
+$site-header-height-xs: 66px;
+$site-header-height-lg: null;
+$drawer-nav-width: 250px;
+$drawer-nav-max-level: 5;
+
+// html
+body {
+	padding-top: $site-header-height-xs;
+}
+
+// body
+#drawer-nav-background {
+	transition: opacity 0.3s $easeOutExpo 0s;
+	opacity: 0;
+	body.drawer-nav-on & {
+		position: fixed;
+		background-color: #000;
+		z-index: 50;
+		width: 100%;
+		height: 9999px;
+		opacity: 0.4;
+		pointer-events: initial;
+	}
+}
+#site-header {
+	position: fixed;
+	top: 0;
+	z-index: 200;
+	width: 100%;
+	padding: 0;
+	background-color: $white;
+	.drawer-nav-on & {
+		background-color: $gray;
+	}
+	.container {
+		padding-top: 10px;
+		padding-bottom: 10px;
+		@media (min-width: breakpoint-min('lg')) {
+			padding-top: 0px;
+			padding-bottom: 0px;
+		}
+	}
+}
+
+#button-drawer-nav {
+	// button configurations
+	$button-size: 36px;
+	$button-padding: 5px;
+	$button-line-thickness: 5px;
+	$align: right; // left|right
+	//$button-line-margin: ($button-size - (3 * $button-line-thickness)) / 2;
+	$button-line-margin: ($button-size - (4 * $button-line-thickness)) / 2;
+	$button-grid-size: $button-size / 5;
+	$button-color: $black;
+	$button-color-on: $white;
+
+	// auto generator
+	position: relative;
+	padding: $button-padding;
+	@if $align == left {
+		margin-right: -1 * $gutter-width-half;
+		padding-right: $gutter-width-half;
+	} @else {
+		margin-left: -1 * $gutter-width-half;
+		padding-left: $gutter-width-half;
+	}
+	height: $button-size + 2 * $button-padding;
+	width: $button-size + 1 * $button-padding + $gutter-width-half;
+	background-color: transparent;
+	border: none;
+	span.bar {
+		display: block;
+		position: absolute;
+		height: $button-line-thickness;
+		width: $button-size;
+		border-radius: $button-size / 2;
+		background-color: $button-color;
+		transition: all 0.5s linear 0s;
+		&:last-child {
+			margin-bottom: 0px;
+		}
+		@for $i from 1 through 3 {
+			&:nth-child(#{$i}) {
+				top: $button-line-thickness/2
+				+ $button-padding
+				+ ($i - 1) * ($button-line-thickness + $button-line-margin);
+			}
+		}
+		.drawer-nav-on & {
+			background-color: $button-color-on;
+			&:nth-child(1) {
+				top: $button-padding + $button-size / 2 - 6px;
+				//top: $button-padding + $button-size / 2;
+				transform: rotate(45deg);
+			}
+			&:nth-child(2) {
+				width: 0px;
+				margin-left: 2 * $button-grid-size;
+			}
+			&:nth-child(3) {
+				top: $button-padding + $button-size / 2 - 6px;
+				//top: $button-padding + $button-size / 2;
+				transform: rotate(-45deg);
+			}
+		}
+	}
+}
+
+// #site-header-xs-drawer
+#drawer-nav {
+	position: absolute;
+	top: $site-header-height-xs;
+	left: -1 * $drawer-nav-width;
+	width: $drawer-nav-width;
+	background: $white;
+	height: calc(100vh - #{$site-header-height-xs});
+	overflow-x: hidden;
+	overflow-y: scroll;
+	z-index: 100;
+	transition: left 1s $easeOutExpo 0s;
+	&.drawer-nav-on {
+		left: 0px;
+	}
+	.wrap {
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		left: 0px;
+		transition: left 0.5s $easeInOutCubic 0s;
+		> p {
+			padding: 20px 0 20px 15px;
+		}
+	}
+
+	li.active,
+	%show-cover {
+		opacity: 1;
+		transition: opacity 0.2s $easeOutExpo 0s;
+		pointer-events: auto;
+	}
+	%hide-cover {
+		opacity: 0;
+		transition: opacity 0.2s $easeOutExpo 0.3s;
+		pointer-events: none;
+	}
+	%show-active {
+		opacity: 1;
+		transition: opacity 0.2s $easeInExpo 0s;
+		pointer-events: auto;
+	}
+	%hide-inactive {
+		opacity: 0;
+		transition: opacity 0.2s $easeOutExpo 0s;
+		pointer-events: none;
+	}
+	.border-bottom,
+	%border-bottom {
+		border-bottom: 1px solid $gray;
+	}
+	.border-top,
+	%border-top {
+		border-top: 1px solid $gray;
+	}
+
+	ul {
+		position: absolute;
+		top: 0;
+		width: $drawer-nav-width;
+		background: $white;
+		@extend %show-active;
+		&::before {
+			content: '';
+			display: block;
+			position: absolute;
+			top: 0;
+			width: 100%;
+			height: 100%;
+			background-color: $white;
+			pointer-events: none;
+			@extend %show-cover;
+		}
+		&.level-1 {
+			overflow: hidden;
+		}
+	}
+	li {
+		padding: 20px 0px 20px 15px;
+		transition: border-color 0.5s linear 0s;
+		font-size: 14px;
+		&.link {
+
+		}
+		&.return {
+			font-size: 12px;
+			@extend %border-bottom;
+		}
+		&.label,
+		&.label small {
+			font-size: 16px;
+			font-weight: bold;
+		}
+		&:first-child {
+			transition: border-color 0.5s linear 0s;
+		}
+		&:last-child {
+			margin-bottom: 100px;
+		}
+		> p {
+			background-image: url(../img/common/arrow.PNG);
+			background-size: 40px;
+			background-repeat: no-repeat;
+			background-position: 200px;
+		}
+	}
+	@for $i from 1 through $drawer-nav-max-level {
+		@if $i == 1 {
+			.level-1 {
+				left: 0px;
+			}
+		} @else {
+			.level-#{$i} {
+				left: $drawer-nav-width;
+			}
+		}
+		&.drawer-nav-level-#{$i} {
+			.wrap {
+				left: -1 * $drawer-nav-width * ($i - 1);
+			}
+			.level-#{$i} {
+				&::before {
+					@extend %hide-cover;
+				}
+			}
+			@if $i != 1 {
+				li:not(.active) ul.level-#{$i} {
+					@extend %hide-inactive;
+				}
+			}
+		}
+	} // end @for
+	p.drawer-nav-toggle {
+		position: fixed;
+		width: $drawer-nav-width;
+		left: -1 * $drawer-nav-width;
+		bottom: 0px;
+		background-color: $white;
+		@extend %border-top;
+		transition: left 1s $easeOutExpo 0s;
+		.drawer-nav-on & {
+			left: 0px;
+		}
+	}
+}

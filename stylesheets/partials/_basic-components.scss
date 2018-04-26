@@ -1,0 +1,44 @@
+* {
+	box-sizing: border-box;
+}
+
+%clearfix {
+	&::before,
+	&::after {
+		content: " ";
+		display: table;
+	}
+	&::after {
+		clear: both;
+	}
+}
+
+%absolute-center {
+	position: absolute;
+	top: 0; left: 0; right: 0; bottom: 0;
+	margin: auto;
+}
+
+// Square Root function (only takes pure integer)
+// http://www.antimath.info/css/sass-sqrt-function/
+@function sqrt($r) {
+	$x0: 1;
+	$x1: $x0;
+
+	@for $i from 1 through 10 {
+		$x1: $x0 - ($x0 * $x0 - abs($r)) / (2 * $x0);
+		$x0: $x1;
+	}
+
+	@return $x1;
+}
+
+// Returns integer without unit
+// https://css-tricks.com/snippets/sass/strip-unit-function/
+@function strip-unit($number) {
+	@if type-of($number) == 'number' and not unitless($number) {
+		@return $number / ($number * 0 + 1);
+	}
+
+	@return $number;
+}

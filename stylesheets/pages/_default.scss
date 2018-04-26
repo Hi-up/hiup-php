@@ -1,0 +1,14 @@
+body.default {
+	
+}
+
+#transition-override-test {
+	.default {
+		background: red;
+		transition: 2s linear 3s;
+	}
+	.change {
+		background: blue;
+		transition: 2s linear 0s;
+	}
+}

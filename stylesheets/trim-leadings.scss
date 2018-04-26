@@ -1,0 +1,84 @@
+@mixin set-font-size($font-size: 1em, $letter-spacing: 0em, $line-height: normal, $trim-leadings: true) {
+	@if unitless($line-height) {
+		$line-height: $line-height + 0em;
+	}
+	@if $trim-leadings == true {
+		$negative-font-leading: calc(-1 * (#{$line-height} - 1em));
+		margin-top: $negative-font-leading;
+		.trim-leadings {
+			vertical-align: ($line-height - 1em)/ -2;
+			line-height: 0em;
+			html[data-IE="Windows_10 IE_11"] & {
+				vertical-align: ($line-height - 1em)/ -2 - 0.16em;
+			}
+		}
+	} @else {
+		.trim-leadings {
+			vertical-align: inherit;
+			line-height: inherit;
+		}
+	}
+	font-size: $font-size;
+	letter-spacing: $letter-spacing;
+	line-height: $line-height;
+}
+
+@font-face {
+  font-family: "YuGothic M";
+  src: local("Yu Gothic Medium");
+}
+.med {
+	font-family: "游ゴシック Medium", "Yu Gothic Medium", "游ゴシック体", YuGothic, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'Droid Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+	//font-family: "游ゴシック体", "游ゴシック", YuGothic, "YuGothic M", 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'Droid Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.norm {
+	font-family: "游ゴシック体", "游ゴシック", YuGothic, 'ヒラギノ角ゴ Pro W3', 'Hiragino Kaku Gothic ProN', 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'Droid Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+.meiryo {
+	font-family: 'メイリオ', Meiryo, 'ＭＳ Ｐゴシック', 'Droid Sans', "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+main#fiddle {
+	& > section {
+		width: 33%;
+		//width: 100%;
+		float: left;
+	}
+
+	// 試験用
+	div.circle {
+	  margin: auto;
+	  $diameter: 30px;
+	  width: $diameter;
+	  height: $diameter;
+	  border-radius: $diameter / 2;
+	  background: orange;
+	}
+	div.circle {
+		width: 100%;
+		boarder-radius: none;
+	}
+	    
+	// 個別スタイル（実際手打ちしなきゃいけない部分）
+	$font-size: 20px;
+	p {
+	  @include set-font-size($font-size, 1px, 2em); // 1行で自動設定
+	  &:not(:last-of-type) { // 段落間余白は手動で設定
+	    margin-bottom: 1em;
+	    // n 行分開けるなら font-size + n * line-height
+	    // 3 行分なら 1em + 3 * 2em = 7em
+	  }
+	  
+	  border-top: dashed 1px red;
+	  border-bottom: dashed 1px blue;
+	  background: rgba(blue, 0.5);
+	  text-align: center;
+	  &.no-trim-leadings {
+	    @include set-font-size($font-size, 1px, 2em, false);
+	    background: rgba(red, 0.5);
+	  }
+	}
+	.trim-leadings {
+		background: rgba(green, 0.5);
+	}
+}

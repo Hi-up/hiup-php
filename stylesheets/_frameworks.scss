@@ -1,0 +1,14 @@
+@charset "UTF-8";
+
+// Modules, settings
+@import "modules/_colors.scss";
+@import "modules/_grid-config.scss";
+
+// Patials
+@import "partials/_basic-components.scss";
+@import "partials/_normalize.min.scss";
+@import "partials/_mediaquery.scss";
+@import "partials/_grid.scss";
+
+// Common rules
+@import "partials/_hp_cmn.scss";

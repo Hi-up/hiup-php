@@ -1,0 +1,11 @@
+$columns: 12;
+$gutter-width: 30px;
+$breakpoints: (
+	// index, media query width, container width
+	("xs", null, null),
+	("sm", 768px, 750px),
+	("md", 992px, 970px),
+	("lg", 1200px,1170px)
+);
+$breakpoint-length: length($breakpoints);
+$gutter-width-half: $gutter-width / 2;

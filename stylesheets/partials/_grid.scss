@@ -1,0 +1,96 @@
+.container {
+	margin-right: auto;
+	margin-left: auto;
+	padding-left: $gutter-width-half;
+	padding-right: $gutter-width-half;
+	position: relative;
+}
+@each $breakpoint in $breakpoints {
+	@if get-breakpoint-viewport($breakpoint) != 0px {
+		@media (min-width: #{get-breakpoint-viewport($breakpoint)}) {
+			.container {
+				width: #{get-breakpoint-width($breakpoint)};
+			}
+			body {
+				min-width: #{get-breakpoint-width($breakpoint)}; // force apply overflowed content
+			}
+		}
+	}
+}
+
+.row {
+	margin-left: - $gutter-width-half;
+	margin-right: - $gutter-width-half;
+}
+.row-nogutter {
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
+@mixin col-grid-all($breakpoint) {
+	%col-grid-standard {
+		position: relative;
+	}
+	%col-grid-gutter {
+		padding-left: $gutter-width-half;
+		padding-right: $gutter-width-half;
+	}
+	%col-grid-nogutter {
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+	%float-left {
+		float: left;
+	}
+	.col-#{$breakpoint} {
+		position: relative;
+		float: left;
+		padding-left: $gutter-width-half;
+		padding-right: $gutter-width-half;
+	}
+	.col-#{$breakpoint}-nogutter,
+	.row-nogutter > .col-#{$breakpoint} {
+		position: relative;
+		padding-left: 0px;
+		padding-right: 0px;
+	}
+	@for $i from 1 through $columns {
+		.col-#{$breakpoint}-#{$i} {
+			@extend .col-#{$breakpoint};
+		}
+		.row-nogutter > .col-#{$breakpoint}-#{$i},
+		.row-nogutter > .col-#{$breakpoint}-pull-#{$i},
+		.row-nogutter > .col-#{$breakpoint}-push-#{$i},
+		.row-nogutter > .col-#{$breakpoint}-offset-#{$i} {
+			@extend .col-#{$breakpoint}-nogutter;
+		}
+		.col-#{$breakpoint}-#{$i} {
+			width: percentage($i / $columns);
+		}
+		.col-#{$breakpoint}-pull-#{$i} {
+			right: percentage($i / $columns);
+		}
+		.col-#{$breakpoint}-push-#{$i} {
+			left: percentage($i / $columns);
+		}
+		.col-#{$breakpoint}-offset-#{$i} {
+			margin-left: percentage($i / $columns);
+		}
+	}
+}
+@each $breakpoint in $breakpoints {
+	@if get-breakpoint-viewport($breakpoint) == 0px {
+		@include col-grid-all(get-breakpoint-index($breakpoint));
+	} @else {
+		@media (min-width: breakpoint(get-breakpoint-index($breakpoint))) {
+			@include col-grid-all(get-breakpoint-index($breakpoint));
+		}
+	}
+}
+
+.container,
+.row,
+.row-nogutter,
+.clearfix {
+	@extend %clearfix;
+}
