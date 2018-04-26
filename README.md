@@ -1,8 +1,9 @@
 # hiup-php
 HiUP Basic PHP Site Configurator
--HiUP PHP サイトのテンプレ
+PHP テンプレです。
 
----
+*公開リポジトリなのでセンシティブなやつコミットしたりコメントしないようにきをつけよう*
+
 ## Get Started
 1. とりあえず config.php に開発と公開サーバの内外パスいれとく
 2. つくる
@@ -12,7 +13,22 @@ HiUP Basic PHP Site Configurator
 …あとは適当に
 
 ---
+## 使ってるぎじゅつ
+- PHP
+- SCSS
 
+だけです。
+
+## いろんな機能
+- ヘッダ、フッタ、サイドバーとかが使い回しできる（ふつうのPHP）
+- `ROOT_URL_PATH` とかの値を使いまわせる（ふつうのPHP）
+- `DEV_ENV` で開発・公開環境を見分けて隠したり見せたりできる
+- 状況に応じて URL 末尾に `?=v1.2` とかのクエリを追加してキャッシュコントロール風味なことができる
+- bootstrap っぽいやつが HIUP の癖に更にピッタリ適用されてる（ふつうのSCSS）
+
+ほかにもそのうち .htaccess らへんも力入れるつもりだけど Laravel とかに引っ越したら用済みなのでとりあえずここでストップ
+
+---
 ## Glossary
 
 ### System Variables 
