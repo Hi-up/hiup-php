@@ -8,7 +8,8 @@ HiUP Basic PHP Site Configurator
 2. つくる
 3. config.php の `SITE_VERSION` を更新
 4. クライアントに渡す<br>**開発環境で渡す時:**<br>URL 末尾に `?development=false` をつける<br>**公開環境で渡す時:**<br>URL 末尾に `?development=true` をつける
-あとは適当に
+
+…あとは適当に
 
 ---
 
