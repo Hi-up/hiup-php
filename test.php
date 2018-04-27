@@ -18,6 +18,12 @@ require ROOT_SRV_PATH.'header.php';
 				New Classname/rule: replaced
 			</div>
 		</section>
+<section id="mq-test">
+<div class="hidden-xs">hidden-xs</div>
+<div class="hidden-sm">hidden-sm</div>
+<div class="hidden-md">hidden-md</div>
+<div class="hidden-lg">hidden-lg</div>
+</section>
 		<button id="toggle-action">Translition!</button>
 		<script>
 			document.getElementById('toggle-action').addEventListener(function(){
