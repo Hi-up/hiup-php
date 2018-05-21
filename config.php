@@ -99,9 +99,9 @@ define("DEV_URL_PATH", DEV_SRV_PATH); // テストサーバ上のURLパス（URL
 // Environment definitions
 define("DEV_ENV", (strpos($_SERVER['HTTP_HOST'], DEV_HOST) !== false));
 if (array_key_exists('development', $queryArray)) {
-	if ($queryArray['development'] === 'false' || !DEV_ENV)
+	if ($queryArray['development'] === 'false')
 		define("DEV_MODE", '');
-	elseif ($queryArray['development'] === 'true' || DEV_ENV)
+	elseif ($queryArray['development'] === 'true')
 		define("DEV_MODE", true);
 } else {
 	define("DEV_MODE", DEV_ENV);
