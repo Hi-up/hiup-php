@@ -19,10 +19,10 @@ require ROOT_SRV_PATH.'header.php';
 			</div>
 		</section>
 <section id="mq-test">
-<div class="hidden-xs">hidden-xs</div>
-<div class="hidden-sm">hidden-sm</div>
-<div class="hidden-md">hidden-md</div>
-<div class="hidden-lg">hidden-lg</div>
+<div class="visible-xs">visible-xs</div>
+<div class="visible-sm">visible-sm</div>
+<div class="visible-md">visible-md</div>
+<div class="visible-lg">visible-lg</div>
 </section>
 		<button id="toggle-action">Translition!</button>
 		<script>
